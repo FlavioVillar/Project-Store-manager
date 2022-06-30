@@ -24,7 +24,7 @@ const add = async (name) => {
     id: row.insertId,
     name,
   };
-  console.log('results', results);
+
   return results;
 };
 

@@ -11,7 +11,7 @@ const getAll = async (_req, res) => {
     }
     res.status(httpStatus.OK).json(products);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
   }
 };
 
@@ -26,7 +26,7 @@ const getById = async (req, res) => {
     }
     res.status(httpStatus.OK).json(product);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
   }
 };
 
@@ -35,20 +35,21 @@ const add = async (req, res) => {
     const { name } = req.body;
     
     const product = await productService.add(name);
-    if (product.name < 5) {
+   
+    if (!product.name || product.length < 1) {
+            return res
+        .status(httpStatus.BAD_REQUEST)
+        .json({ message: '"name" is required' });
+    }
+    if (product.name.length < 5) {      
       return res
         .status(httpStatus.UNPROCESSABLE_ENTITY)
         .json({ message: '"name" length must be at least 5 characters long' });
     }
     
-    if (!product) {
-      return res
-        .status(httpStatus.INTERNAL_SERVER_ERROR)
-        .json({ message: '"name" is required' });
-    }
     res.status(httpStatus.CREATED).json(product);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
   }
 };
 
@@ -67,7 +68,7 @@ const update = async (req, res) => {
 
     res.status(httpStatus.OK).json(product);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
   }
 };
 
@@ -84,7 +85,7 @@ const exclude = async (req, res) => {
 
     res.status(httpStatus.OK);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
   }
 };
 

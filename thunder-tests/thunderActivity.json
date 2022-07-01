@@ -22,12 +22,31 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2022-06-30T19:55:27.231Z",
-    "modified": "2022-06-30T21:47:46.982Z",
+    "modified": "2022-06-30T21:54:15.431Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n    \"id\": 4,\n    \"name\": \"Pro\"\n}",
+      "raw": "{\n    \"id\": 4,\n    \"name\": \"Prossss\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a5f65ef2-9c07-4c85-8ec3-a4ee00bf1bf9",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/products/1",
+    "url": "localhost:3000/products/1",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2022-06-30T21:57:37.355Z",
+    "modified": "2022-07-01T20:27:40.312Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"name\": \"testsss\"\n}",
       "form": []
     },
     "tests": []

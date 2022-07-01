@@ -20,7 +20,7 @@ const add = async (name) => {
 
 const update = async (id, name) => {
   const product = await productModel.update(id, name);
-  if (product !== 1) return [];
+  if (product !== 1) return false;
   return product;
 };
 

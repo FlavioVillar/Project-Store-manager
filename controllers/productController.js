@@ -33,20 +33,8 @@ const getById = async (req, res) => {
 const add = async (req, res) => {
   try {
     const { name } = req.body;
-    
+
     const product = await productService.add(name);
-   
-    if (!product.name || product.length < 1) {
-            return res
-        .status(httpStatus.BAD_REQUEST)
-        .json({ message: '"name" is required' });
-    }
-    if (product.name.length < 5) {      
-      return res
-        .status(httpStatus.UNPROCESSABLE_ENTITY)
-        .json({ message: '"name" length must be at least 5 characters long' });
-    }
-    
     res.status(httpStatus.CREATED).json(product);
   } catch (error) {
     res.status(httpStatus.INTERNAL_SERVER).send(error);
@@ -58,15 +46,11 @@ const update = async (req, res) => {
     const { name } = req.body;
     const { id } = req.params;
 
-    const product = await productService.update(id, name);
-
-    if (product === 0) {
-      return res
-        .status(httpStatus.NOT_FOUND)
-        .json({ message: 'Product not found' });
+    if (name) {
+      await productService.update(id, name);
+      const product = await productService.getById(id);
+      res.status(httpStatus.OK).json(product);
     }
-
-    res.status(httpStatus.OK).json(product);
   } catch (error) {
     res.status(httpStatus.INTERNAL_SERVER).send(error);
   }

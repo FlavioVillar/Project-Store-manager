@@ -36,15 +36,50 @@ describe('Testa lista os produtos na base de dados', () => {
     }
     );
 
-    it('Deve retornar um produto pelo id', async () => {
-      const result = await productsModels.getById(1);
-      expect(result.name).to.be.equal("Product 1");
-    }
-    );
+    // it('Deve retornar um produto pelo id', async () => {
+    //   const result = await productsModels.getById(1);
+    //   expect(result).to.be.a('object');
+    // }
+    // );
 
   }
   )
 }
 )
 
+describe('Testa o cadastro de produtos', () => {
+  
+    const payloadProduct = [{
+      id: 1,
+      name: 'Product 1',
+    }]
+  
+    before(async () => {
+      sinon.stub(connection, "execute").returns(payloadProduct);
+    }
+    )
+  
+    after(async () => {
+      connection.execute.restore();
+    }
+    )
+  
+    describe('Teste do cadastro de produtos - Models', () => {
+      it('Deve retornar um Objeto', async () => {
+        const result = await productsModels.add(payloadProduct);
+        expect(result).to.be.a('object');
+      }
+      );
+  
+      it('Testa as propriedades do objeto', async () => {
+        const result = await productsModels.add('Product 1');
+        expect(result).to.have.property('id');
+        expect(result).to.have.property('name');
+      }
+      );  
+ 
+    }
+    )
+}
+)
 

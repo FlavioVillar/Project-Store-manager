@@ -63,3 +63,91 @@ describe("Teste ao chamar controller", () => {
     });
   });
 });
+
+describe("Teste do cadastro de produtos - Controller", () => {
+  describe("quando o payload informado não é válido", () => {
+    const response = {};
+    const request = {};
+
+    before(() => {
+      request.body = {};
+
+      response.status = sinon.stub().returns(response);
+      response.send = sinon.stub().returns();
+    });
+
+    it("Deve retornar um status 500", async () => {
+      await productController.add(request, response);
+      expect(response.status.calledWith(500)).to.be.equal(true);
+    });
+
+    describe("quando é inserido com sucesso", () => {
+      const response = {};
+      const request = {};
+
+      before(() => {
+        request.body = {
+          id: 1,
+          name: "Product 1",
+        };
+
+        response.status = sinon.stub().returns(response);
+        response.send = sinon.stub().returns();
+      });
+
+      it("é chamado o status com o código 201", async () => {
+        await productController.add(request, response);
+        expect(response.status.calledWith(201)).to.be.true;
+      });
+    });
+  });
+
+  describe("Teste de atualização de produtos - Controller", () => {
+    describe("quando o payload informado não é válido", () => {
+      const response = {};
+      const request = {};
+
+      before(() => {
+        request.body = {};
+
+        response.status = sinon.stub().returns(response);
+        response.send = sinon.stub().returns();
+      });
+
+      it("Deve retornar um status 500", async () => {
+        await productController.update(request, response);
+        expect(response.status.calledWith(500)).to.be.equal(true);
+      });
+    }
+    );
+
+    describe("quando é atualizado com sucesso", () => {
+      const response = {};
+      const request = {
+        params: {
+          id: 1,
+        },
+      };
+
+      before(() => {
+        request.body = {
+          id: 1,
+          name: "Teste cadastro",
+        };
+
+        response.status = sinon.stub().returns(response);
+        response.send = sinon.stub().returns();
+      }
+      );
+
+      it("é chamado o status com o código 200", async () => {
+        await productController.update(request, response);
+        console.log(response.status.calledWith(200));
+        expect(response.status.calledWith(200)).to.be.true;
+      });
+    }
+    );
+  }
+  );
+
+});

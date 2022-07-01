@@ -60,14 +60,13 @@ const exclude = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await productService.exclude(id);
+    console.log(product);
 
     if (product === null || product < 1) {
       return res
-        .status(httpStatus.NOT_FOUND)
+        .status(httpStatus.NO_CONTENT)
         .json({ message: 'Product not found' });
     }
-
-    res.status(httpStatus.OK);
   } catch (error) {
     res.status(httpStatus.INTERNAL_SERVER).send(error);
   }

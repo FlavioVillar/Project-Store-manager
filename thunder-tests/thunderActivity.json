@@ -50,5 +50,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "73755e20-85e5-4b5d-94c5-e45c4a444d18",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/1",
+    "url": "localhost:3000/1",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2022-07-01T20:35:44.199Z",
+    "modified": "2022-07-01T20:44:54.910Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

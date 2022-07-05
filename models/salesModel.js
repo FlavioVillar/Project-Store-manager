@@ -1,6 +1,7 @@
 const connection = require('../helpers/connection');
 
 const addSale = async () => {
+  // console.log('model addSale');
   const [sale] = await connection.execute(
     'INSERT INTO sales (date) values (?)', [new Date()],
   );

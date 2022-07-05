@@ -2,13 +2,12 @@ const httpStatus = require('../helpers/httpstatuscode');
 const saleSchema = require('../schemas/saleSchema');
 const productsModel = require('../models/productModel');
 
-const authSales = async (req, res, next) => {
+const authSales = (req, res, next) => {
   const sale = req.body;
-  const { error } = await saleSchema.validate(sale);
+  const { error } = saleSchema.validate(sale);
 
   if (error) {
     const { message } = error;
-    console.log(message);
     if (
       message === '"productId" is required'
       || message === '"quantity" is required'
@@ -23,21 +22,48 @@ const authSales = async (req, res, next) => {
 
 const authProductId = async (req, res, next) => {
   const getProductDb = await productsModel.getAll();
-  const getIdDb = getProductDb.map((product) => product.id);
-  const productId = req.body.map((item) => item.productId);
+  const getProductIdDb = getProductDb.map((product) => product.id);
 
-  const sale = getIdDb.includes(productId);
-
-  if (!sale) {
+  // O método every() testa se todos os elementos do array passam por um teste implementado por uma função fornecida. 
+  const validateProductsIdInSales = req.body.every((product) =>
+    getProductIdDb.includes(product.productId));
+  if (!validateProductsIdInSales) {
     return res
       .status(httpStatus.NOT_FOUND)
       .json({ message: 'Product not found' });
   }
 
-  next();
+next();
 };
 
 module.exports = {
   authSales,
   authProductId,
 };
+
+// ! autenticação sem Joi
+
+// const authSales = (req, res, next) => {
+//   const sale = req.body;
+
+//   console.log("2", sale);
+//   if (!sale.every((item) => item.productId)) {
+//     return res.status(httpStatus.BAD_REQUEST).json({
+//       message: '"productId" is required',
+//     });
+//   }
+
+//   if (!sale.every((item) => item.quantity > 0 || item.quantity === undefined)) {
+//     return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({
+//       message: '"quantity" must be greater than or equal to 1',
+//     });
+//   }
+
+//   if (!sale.every((item) => item.quantity)) {
+//     return res.status(httpStatus.BAD_REQUEST).json({
+//       message: '"quantity" is required',
+//     });
+//   }
+
+//   next();
+// };

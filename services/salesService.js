@@ -1,7 +1,6 @@
 const salesModel = require('../models/salesModel');
 
 const addSale = async (sale) => {
-  // console.log('service addSale');
   const saleInsertId = await salesModel.addSale();
   const saleProduct = sale.map((product) =>
     salesModel.addSaleProduct(saleInsertId, product));
@@ -11,6 +10,18 @@ const addSale = async (sale) => {
   return { id: saleInsertId, itemsSold: sale };
 };
 
+const getAll = async () => {
+  const sales = await salesModel.getAll();
+  return sales;
+};
+
+const getById = async (id) => {
+  const sales = await salesModel.getById(id);
+  return sales;
+};
+
 module.exports = {
   addSale,
+  getById,
+  getAll,
 };

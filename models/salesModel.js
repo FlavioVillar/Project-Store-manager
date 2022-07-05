@@ -1,9 +1,9 @@
 const connection = require('../helpers/connection');
 
 const addSale = async () => {
-  // console.log('model addSale');
   const [sale] = await connection.execute(
-    'INSERT INTO sales (date) values (?)', [new Date()],
+    'INSERT INTO sales (date) values (?)',
+    [new Date()],
   );
   return sale.insertId;
 };
@@ -17,7 +17,26 @@ const addSaleProduct = async (saleId, product) => {
   return saleProduct.insertId;
 };
 
+const getAll = async () => {
+  const [sales] = await connection.execute(
+    `SELECT sale_id as saleId , date, product_id as productId, quantity 
+  FROM sales_products INNER JOIN sales ON sales_products.sale_id = sales.id`,
+  );
+  return sales;
+};
+
+const getById = async (id) => {
+  const [sales] = await connection.execute(
+    `SELECT date, product_id as productId, quantity 
+    FROM sales_products INNER JOIN sales ON sales_products.sale_id = sales.id WHERE sales.id = ?`,
+    [id],
+  );
+  return sales;
+};
+
 module.exports = {
   addSale,
   addSaleProduct,
+  getById,
+  getAll,
 };

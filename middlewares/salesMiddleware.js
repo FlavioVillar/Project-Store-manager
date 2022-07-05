@@ -24,7 +24,7 @@ const authProductId = async (req, res, next) => {
   const getProductDb = await productsModel.getAll();
   const getProductIdDb = getProductDb.map((product) => product.id);
 
-  // O método every() testa se todos os elementos do array passam por um teste implementado por uma função fornecida. 
+  // O método every() testa se todos os elementos do array passam por um teste implementado por uma função fornecida.
   const validateProductsIdInSales = req.body.every((product) =>
     getProductIdDb.includes(product.productId));
   if (!validateProductsIdInSales) {
@@ -33,12 +33,28 @@ const authProductId = async (req, res, next) => {
       .json({ message: 'Product not found' });
   }
 
-next();
+  next();
 };
+
+// const authId = async (req, res, next) => {
+//   const { id } = req.params;
+//   console.log("id", id);
+//   const getProductDb = await productsModel.getAll();
+//   const getProductIdDb = getProductDb.map((product) => product.id);
+
+//   const validateIdInSales = !getProductIdDb.includes(id);
+//   console.log("validateIdInSales", validateIdInSales);
+//   if (!validateIdInSales) {
+//     return res.status(httpStatus.NOT_FOUND).json({ message: "Sale not found" });
+//   }
+
+//   next();
+// };
 
 module.exports = {
   authSales,
   authProductId,
+  // authId,
 };
 
 // ! autenticação sem Joi

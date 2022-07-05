@@ -5,5 +5,7 @@ const { authSales, authProductId } = require('../middlewares/salesMiddleware');
 const router = express.Router();
 
 router.post('/', authSales, authProductId, salesController.addSale);
+router.get('/', salesController.getAll);
+router.get('/:id', salesController.getById);
 
 module.exports = router;

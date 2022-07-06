@@ -141,8 +141,7 @@ describe("Teste do cadastro de produtos - Controller", () => {
       );
 
       it("é chamado o status com o código 200", async () => {
-        await productController.update(request, response);
-        console.log(response.status.calledWith(200));
+        await productController.update(request, response);        
         expect(response.status.calledWith(200)).to.be.true;
       });
     }

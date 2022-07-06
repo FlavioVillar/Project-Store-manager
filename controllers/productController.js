@@ -60,7 +60,6 @@ const exclude = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await productService.exclude(id);
-    console.log(product);
 
     if (product === null || product < 1) {
       return res

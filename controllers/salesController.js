@@ -55,9 +55,7 @@ const update = async (req, res) => {
   try {
     const sale = req.body;
     const { id } = req.params;
-    // console.log("1", sale,'2,', id);
     const updatedSale = await salesService.update(id, sale);
-    console.log('3', updatedSale);
     if (updatedSale.length === 0) {
       return res
         .status(httpStatus.NOT_FOUND)

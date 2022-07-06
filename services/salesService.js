@@ -33,7 +33,6 @@ const update = async (id, sale) => {
   const serviceSale = sale.map((product) =>
     salesModel.update(product.productId, product.quantity));
   await Promise.all(serviceSale);
-  console.log('serviceSale', serviceSale);
 
   return { saleId: id, itemsUpdated: sale };
 };

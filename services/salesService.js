@@ -25,9 +25,23 @@ const exclude = async (id) => {
   return sales;
 };
 
+const update = async (id, sale) => {
+  const validateId = await salesModel.getById(id);
+  if (!validateId || validateId.length === 0) {
+    return validateId;
+  }
+  const serviceSale = sale.map((product) =>
+    salesModel.update(product.productId, product.quantity));
+  await Promise.all(serviceSale);
+  console.log('serviceSale', serviceSale);
+
+  return { saleId: id, itemsUpdated: sale };
+};
+
 module.exports = {
   addSale,
   getById,
   getAll,
   exclude,
+  update,
 };

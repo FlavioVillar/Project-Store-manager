@@ -51,9 +51,28 @@ const exclude = async (req, res) => {
   }
 };  
 
+const update = async (req, res) => {
+  try {
+    const sale = req.body;
+    const { id } = req.params;
+    // console.log("1", sale,'2,', id);
+    const updatedSale = await salesService.update(id, sale);
+    console.log('3', updatedSale);
+    if (updatedSale.length === 0) {
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ message: 'Sale not found' });
+    }
+    res.status(httpStatus.OK).json(updatedSale);
+  } catch (error) {
+    return res.status(httpStatus.BAD_REQUEST).json({ message: error });
+  }
+};
+
 module.exports = {
   addSale,
   getById,
   getAll,
   exclude,
+  update,
 };

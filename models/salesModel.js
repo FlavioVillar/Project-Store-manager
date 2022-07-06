@@ -42,10 +42,19 @@ const exclude = async (id) => {
   return rows;
 };
 
+const update = async (productId, quantity) => {
+  const [rows] = await connection.execute(
+    'UPDATE sales_products SET quantity = ? WHERE product_id = ?',
+    [quantity, productId],
+  );
+  return rows;
+};
+
 module.exports = {
   addSale,
   addSaleProduct,
   getById,
   getAll,
   exclude,
+  update,
 };

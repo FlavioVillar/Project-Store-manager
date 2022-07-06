@@ -2,7 +2,7 @@ const connection = require('../helpers/connection');
 
 const addSale = async () => {
   const [sale] = await connection.execute(
-    'INSERT INTO sales (date) values (?)',
+    'INSERT INTO StoreManager.sales (date) values (?)',
     [new Date()],
   );
   return sale.insertId;
@@ -10,7 +10,7 @@ const addSale = async () => {
 
 const addSaleProduct = async (saleId, product) => {
   const [saleProduct] = await connection.execute(
-    'INSERT INTO sales_products (sale_id, product_id, quantity) values (?, ?, ?)',
+    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) values (?, ?, ?)',
     [saleId, product.productId, product.quantity],
   );
 
@@ -20,7 +20,7 @@ const addSaleProduct = async (saleId, product) => {
 const getAll = async () => {
   const [sales] = await connection.execute(
     `SELECT sale_id as saleId , date, product_id as productId, quantity 
-  FROM sales_products INNER JOIN sales ON sales_products.sale_id = sales.id`,
+  FROM StoreManager.sales_products INNER JOIN sales ON sales_products.sale_id = sales.id`,
   );
   return sales;
 };
@@ -28,7 +28,8 @@ const getAll = async () => {
 const getById = async (id) => {
   const [sales] = await connection.execute(
     `SELECT date, product_id as productId, quantity 
-    FROM sales_products INNER JOIN sales ON sales_products.sale_id = sales.id WHERE sales.id = ?`,
+    FROM StoreManager.sales_products 
+    INNER JOIN sales ON sales_products.sale_id = sales.id WHERE sales.id = ?`,
     [id],
   );
   return sales;
@@ -36,7 +37,7 @@ const getById = async (id) => {
 
 const exclude = async (id) => {
   const [rows] = await connection.execute(
-    'DELETE FROM sales WHERE id = ? ',
+    'DELETE FROM StoreManager.sales WHERE id = ? ',
     [id],
   );
   return rows;
@@ -44,7 +45,7 @@ const exclude = async (id) => {
 
 const update = async (productId, quantity) => {
   const [rows] = await connection.execute(
-    'UPDATE sales_products SET quantity = ? WHERE product_id = ?',
+    'UPDATE StoreManager.sales_products SET quantity = ? WHERE product_id = ?',
     [quantity, productId],
   );
   return rows;

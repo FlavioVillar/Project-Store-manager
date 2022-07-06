@@ -43,10 +43,20 @@ const exclude = async (id) => {
   );
 };
 
+const search = async (name) => {
+  const [rows] = await connection.execute(
+    'SELECT * FROM StoreManager.products WHERE name LIKE ?',
+    // tratamento para retornar o nome, incompleto ou completo
+    [`%${name}%`],
+  );
+  return rows;
+};
+
 module.exports = {
   getAll,
   getById,
   add,
   update,
   exclude,
+  search,
 };

@@ -177,5 +177,82 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "0932d181-6370-4286-bd9b-d3892f35f30c",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/products/search",
+    "url": "localhost:3000/products/search",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-07-06T17:31:55.913Z",
+    "modified": "2022-07-06T17:33:03.501Z",
+    "headers": [
+      {
+        "name": "name",
+        "value": "Martelo de Thor"
+      }
+    ],
+    "params": [
+      {
+        "name": "name",
+        "value": "Martelo de Thor",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "b346522c-22c9-4f6a-bf40-7654cf4920a8",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/products/search?name=Martelo de Thor",
+    "url": "localhost:3000/products/search?name=Martelo de Thor",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-07-06T17:32:58.987Z",
+    "modified": "2022-07-06T17:43:12.356Z",
+    "headers": [
+      {
+        "name": "name",
+        "value": "Martelo"
+      }
+    ],
+    "params": [
+      {
+        "name": "name",
+        "value": "Martelo de Thor",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "00819f8a-e27d-4ab5-9299-8089fb897608",
+    "colId": "history",
+    "containerId": "",
+    "name": "localhost:3000/products/search?name=Martelo",
+    "url": "localhost:3000/products/search?name=Martelo",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-07-06T17:43:20.060Z",
+    "modified": "2022-07-06T17:43:46.604Z",
+    "headers": [
+      {
+        "name": "name",
+        "value": "Martelo",
+        "isDisabled": true
+      }
+    ],
+    "params": [
+      {
+        "name": "name",
+        "value": "Martelo",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]

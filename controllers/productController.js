@@ -71,10 +71,26 @@ const exclude = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const products = await productService.search(q);
+    if (!products) {
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ message: 'Product not found' });
+    }
+    res.status(httpStatus.OK).json(products);
+  } catch (error) {
+    res.status(httpStatus.INTERNAL_SERVER).send(error);
+  }
+};      
+
 module.exports = {
   getAll,
   getById,
   add,
   update,
   exclude,
+  search,
 };

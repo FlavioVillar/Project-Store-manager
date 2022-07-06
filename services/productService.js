@@ -30,10 +30,17 @@ const exclude = async (id) => {
   return product;
 };
 
+const search = async (name) => {
+  const products = await productModel.search(name);
+  if (!products) return [];
+  return products;
+};
+
 module.exports = {
   getAll,
   getById,
   add,
   update,
   exclude,
+  search,
 };

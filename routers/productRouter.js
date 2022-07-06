@@ -6,6 +6,7 @@ const { authProductId } = require('../middlewares/productMiddleware');
 const router = express.Router();
 
 router.get('/', productController.getAll);
+router.get('/search', productController.search);
 router.get('/:id', productController.getById);
 router.post('/', nameValidation, productController.add);
 router.put('/:id', nameValidation, authProductId, productController.update);

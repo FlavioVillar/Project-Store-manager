@@ -36,25 +36,9 @@ const authProductId = async (req, res, next) => {
   next();
 };
 
-// const authId = async (req, res, next) => {
-//   const { id } = req.params;
-//   console.log("id", id);
-//   const getProductDb = await productsModel.getAll();
-//   const getProductIdDb = getProductDb.map((product) => product.id);
-
-//   const validateIdInSales = !getProductIdDb.includes(id);
-//   console.log("validateIdInSales", validateIdInSales);
-//   if (!validateIdInSales) {
-//     return res.status(httpStatus.NOT_FOUND).json({ message: "Sale not found" });
-//   }
-
-//   next();
-// };
-
 module.exports = {
   authSales,
   authProductId,
-  // authId,
 };
 
 // ! autenticação sem Joi

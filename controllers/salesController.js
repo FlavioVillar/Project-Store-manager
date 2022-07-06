@@ -36,8 +36,24 @@ const getById = async (req, res) => {
   }
 };
 
+const exclude = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedSale = await salesService.exclude(id);
+    if (deletedSale.affectedRows === 0) {
+      return res
+        .status(httpStatus.NOT_FOUND)
+        .json({ message: 'Sale not found' });
+    }
+    res.status(httpStatus.NO_CONTENT).json(deletedSale);
+  } catch (error) {
+    return res.status(httpStatus.BAD_REQUEST).json({ message: error });
+  }
+};  
+
 module.exports = {
   addSale,
   getById,
   getAll,
+  exclude,
 };

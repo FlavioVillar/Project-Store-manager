@@ -20,8 +20,14 @@ const getById = async (id) => {
   return sales;
 };
 
+const exclude = async (id) => {
+  const sales = await salesModel.exclude(id);
+  return sales;
+};
+
 module.exports = {
   addSale,
   getById,
   getAll,
+  exclude,
 };

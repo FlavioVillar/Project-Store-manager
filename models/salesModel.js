@@ -43,7 +43,6 @@ const exclude = async (id) => {
     'DELETE FROM StoreManager.sales WHERE id = ? ',
     [id],
   );
-  console.log(rows);
   return rows;
 };
 

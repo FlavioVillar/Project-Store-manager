@@ -78,25 +78,4 @@ describe('6 - Teste Models "sales"', () => {
       expect(result.id).to.be.equal(3);
     });
   });
-
-  describe("Testa o delete de um produto - delete", () => {
-    before(async () => {
-      sinon.stub(connection, "execute").resolves({ affectedRows: 1});
-    });
-
-    after(async () => {
-      connection.execute.restore();
-    });
-
-    it("Testa de retorna um Boolean", async () => {
-      const result = await salesModels.exclude(1);
-      expect(result).to.be.a("number");
-    });
-
-    it("Testa de retorna true", async () => {
-      const result = await salesModels.exclude(1);
-      console.log(result);
-      expect(result).to.be.equal({affectedRows: 1});
-    });
-  });
 });

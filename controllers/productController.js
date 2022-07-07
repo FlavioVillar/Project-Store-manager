@@ -33,7 +33,6 @@ const getById = async (req, res) => {
 const add = async (req, res) => {
   try {
     const { name } = req.body;
-
     const product = await productService.add(name);
     res.status(httpStatus.CREATED).json(product);
   } catch (error) {
@@ -42,10 +41,9 @@ const add = async (req, res) => {
 };
 
 const update = async (req, res) => {
+  const { id } = req.params;
   try {
     const { name } = req.body;
-    const { id } = req.params;
-
     if (name) {
       await productService.update(id, name);
       const product = await productService.getById(id);
@@ -57,15 +55,15 @@ const update = async (req, res) => {
 };
 
 const exclude = async (req, res) => {
+  const { id } = req.params;
   try {
-    const { id } = req.params;
     const product = await productService.exclude(id);
-
-    if (product === null || product < 1) {
+    if (product.affectedRows === 0) {
       return res
-        .status(httpStatus.NO_CONTENT)
+        .status(httpStatus.NOT_FOUND)
         .json({ message: 'Product not found' });
     }
+    res.status(httpStatus.NO_CONTENT).json(product);
   } catch (error) {
     res.status(httpStatus.INTERNAL_SERVER).send(error);
   }

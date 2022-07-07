@@ -4,21 +4,21 @@ const { expect } = require("chai");
 const productModel = require("../../../models/productModel");
 const productServices = require("../../../services/productService");
 
-describe("Testa lista os produtos na base de dados", () => {
-  const payloadProduct = {
-    id: 1,
-    name: "Product 1",
-  };
+const payloadProduct = {
+  id: 1,
+  name: "Product 1",
+};
 
-  before(async () => {
-    sinon.stub(productModel, "getAll").returns(payloadProduct);
-  });
+describe("2 - Teste services 'products'", () => {
+  describe('Testa lista os produtos na base de dados - get "All"', () => {
+    before(async () => {
+      sinon.stub(productModel, "getAll").returns(payloadProduct);
+    });
 
-  after(async () => {
-    productModel.getAll.restore();
-  });
+    after(async () => {
+      productModel.getAll.restore();
+    });
 
-  describe("Teste da lista os produtos", () => {
     it("Deve retornar um Objeto", async () => {
       const result = await productServices.getAll();
       expect(result).to.be.a("object");
@@ -30,38 +30,70 @@ describe("Testa lista os produtos na base de dados", () => {
       expect(result).to.have.property("name");
     });
   });
-});
 
-describe("Testa o cadastro de produtos - Services", () => {
-  describe("quando o nome informado não é válido", () => {
-    it("retorna um boolean", async () => {
+  describe('Testa lista os produtos na base de dados por id - get "ById"', () => {
+    before(async () => {
+      sinon.stub(productModel, "getById").resolves([payloadProduct]);
+    });
+
+    after(async () => {
+      productModel.getById.restore();
+    });
+
+    it("Deve retornar um Objeto", async () => {
+      const result = await productServices.getById(1);
+      expect(result).to.be.a("object");
+    });
+
+    it("Testa as propriedades do objeto", async () => {
+      const result = await productServices.getById(1);
+      expect(result).to.have.property("id");
+      expect(result).to.have.property("name");
+    });
+  });
+
+  describe("Testa cadastro Produtos - post", () => {
+    before(async () => {
+      sinon.stub(productModel, "add").resolves(payloadProduct);
+    });
+
+    after(async () => {
+      productModel.add.restore();
+    });
+
+    it("Retorna um boolean", async () => {
       const result = await productServices.add("");
       expect(result).to.be.a("boolean");
     });
 
-    it("retorna false", async () => {
+    it("Retorna false", async () => {
       const result = await productServices.add("");
       expect(result).to.be.false;
     });
+
+    it("Retorna o produto cadastrado", async () => {
+      const result = await productServices.add("Product 25");
+      expect(result).to.be.equal(payloadProduct);
+    });
   });
+      
+  describe("Teste de buscar produto - search", () => {
+    before(async () => {
+      sinon.stub(productModel, "search").resolves(payloadProduct);
+    });
 
-  describe('quando é inserido com sucesso', () => {
-    payloadProduct = {
-      id: 1,
-      name: "Product 1",
-    };
-    it('retorna um objeto', async () => {
-      const result = await productServices.add(payloadProduct);
-      expect(result).to.be.a('object');
-    }
-    )
-    it('retorna o produto cadastrado', async () => {
-      const result = await productServices.add(payloadProduct);
-      expect(result).to.have.property('id');
-      expect(result).to.have.property('name');
-    }
-    )
-  }
-  )
+    after(async () => {
+      productModel.search.restore();
+    });
 
+    it("Retorna um Objeto", async () => {
+      const result = await productServices.search("");
+      expect(result).to.be.a("object");
+    });
+
+    it("Retorna o produto buscado", async () => {
+      const result = await productServices.search("Product 1");
+      expect(result).to.be.equal(payloadProduct);
+    });
+  });
 });

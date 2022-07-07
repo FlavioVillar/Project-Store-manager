@@ -37,10 +37,11 @@ const update = async (id, name) => {
 };
 
 const exclude = async (id) => {
-  connection.execute(
+  const [results] = await connection.execute(
     'DELETE FROM StoreManager.products WHERE id = ?',
     [id],
   );
+  return results.affectedRows;
 };
 
 const search = async (name) => {
